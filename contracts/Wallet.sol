@@ -7,7 +7,7 @@ pragma solidity ^0.8.9;
 contract Wallet {
    mapping(address => uint) wallets;
 
-   function retirerArgent(address payable _to, uint _amount) external {
+   function withdrawMoney(address payable _to, uint _amount) external {
         require(_amount <= wallets[msg.sender], "Pas d'argents");
         wallets[msg.sender] -= _amount; 
        _to.transfer(_amount);
