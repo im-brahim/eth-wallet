@@ -3,8 +3,9 @@ import { ethers, providers } from 'ethers';
 import  Wallet  from './artifacts/contracts/Wallet.sol/Wallet.json';
 import './App.css';
 
-// Address of my Wallet(Smart Contract)
-let WalletAddress = '0xDc64a140Aa3E981100a9becA4E685f962f0cF6C9'
+
+// Address of my Wallet(Smart Contract) 
+let WalletAddress = '0x5FbDB2315678afecb367f032d93F642f64180aa3'
 
 function App() {
 
@@ -60,7 +61,10 @@ function App() {
         setAmountSend('');
         getBalance();
         setSuccess('Votre argent a bien été transféré sur le portefeuille ! ')
-      }
+        setTimeout(() => {
+          window.location.reload();
+        }, 2000); // wait for 2 seconds before reloading the page
+        }
       catch(err) {
         setError('Une erreur est survenue.');
       }
@@ -86,6 +90,9 @@ function App() {
       setAmountWithdraw('');
       getBalance();
       setSuccess('Votre argent a bien été retiré du portefeuille ! ');
+      setTimeout(() => {
+        window.location.reload();
+      }, 2000); // wait for 2 seconds before reloading the page
     }
     catch(err) {
       setError('Une erreur est survenue sur withdraw function.');
@@ -101,26 +108,28 @@ function App() {
   }
 
 
-
+  //This is a JSX code 
   return (
     <div className="App">
      <div className="container">
         <div className="logo">
           <i className="fab fa-ethereum"></i>
         </div>
+        
         {error && <p className="error">{error}</p>}
         {success && <p className="success">{success}</p>}
-        <h2>{balance / 10**18} <span className="eth">eth</span></h2>
+                
+        <h2>Balence : {balance / 10**18} <span className="eth">eth</span></h2>
         <div className="wallet__flex">
           <div className="walletG">
             <h3>Envoyer de l'ether</h3>
             <input type="text" placeholder="Montant en Ethers" onChange={changeAmountSend} />
-            <button onClick={transfer}>Envoyer</button>
+            <button id='envoyer' onClick={transfer} >Envoyer</button>
           </div>
           <div className="walletD">
             <h3>Retirer de l'ether</h3>
             <input type="text" placeholder="Montant en Ethers" onChange={changeAmountWithdraw} />
-            <button onClick={withdraw}>Retirer</button>
+            <button id='retirer' onClick={withdraw}>Retirer</button>
           </div>
         </div>
       </div>
